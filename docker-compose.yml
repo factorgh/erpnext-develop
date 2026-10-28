@@ -109,6 +109,7 @@ services:
     restart: unless-stopped
     networks:
       - frappe_network
+      - traefik-proxy
     depends_on:
       - websocket
       - backend
@@ -128,6 +129,13 @@ services:
       - logs:/home/frappe/frappe-bench/logs
     ports:
       - "8080:8080"
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=traefik-proxy
+      - traefik.http.routers.stackerp.rule=Host(`ledstackerp.com`) || Host(`www.ledstackerp.com`)
+      - traefik.http.routers.stackerp.entrypoints=websecure
+      - traefik.http.routers.stackerp.tls.certresolver=letsencrypt
+      - traefik.http.services.stackerp.loadbalancer.server.port=8080
 
   queue-long:
     image: frappe/erpnext:v16.52.1
@@ -225,3 +233,5 @@ volumes:
 networks:
   frappe_network:
     driver: bridge
+  traefik-proxy:
+    external: true

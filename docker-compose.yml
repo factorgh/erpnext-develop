@@ -1,11 +1,11 @@
-# Hostinger Docker Manager: paste this file's GitHub URL, or paste the YAML via Compose manually.
-# After deploy, open http://YOUR_VPS_IP:8080
-# First login: Administrator / admin  — change this password immediately.
-# Images are official frappe/erpnext (this repo is the compose source, not a custom app build).
+# Hostinger Docker Manager + GitHub Actions.
+# Push to main builds ghcr.io/factorgh/erpnext-develop and redeploys this stack.
+# First login: Administrator / admin — change this password immediately.
 
 services:
   backend:
-    image: frappe/erpnext:v16.52.1
+    image: ${ERPNEXT_IMAGE:-ghcr.io/factorgh/erpnext-develop:latest}
+    pull_policy: always
     restart: unless-stopped
     networks:
       - frappe_network
@@ -22,7 +22,8 @@ services:
         condition: service_completed_successfully
 
   configurator:
-    image: frappe/erpnext:v16.52.1
+    image: ${ERPNEXT_IMAGE:-ghcr.io/factorgh/erpnext-develop:latest}
+    pull_policy: always
     restart: "no"
     networks:
       - frappe_network
@@ -38,6 +39,11 @@ services:
         bench set-config -g redis_queue "redis://$$REDIS_QUEUE";
         bench set-config -g redis_socketio "redis://$$REDIS_QUEUE";
         bench set-config -gp socketio_port $$SOCKETIO_PORT;
+        if [ -d sites/frontend ]; then
+          bench --site frontend set-config host_name "https://ledstackerp.com";
+          bench --site frontend migrate || true;
+          bench --site frontend clear-cache || true;
+        fi;
     environment:
       DB_HOST: db
       DB_PORT: "3306"
@@ -49,7 +55,8 @@ services:
       - logs:/home/frappe/frappe-bench/logs
 
   create-site:
-    image: frappe/erpnext:v16.52.1
+    image: ${ERPNEXT_IMAGE:-ghcr.io/factorgh/erpnext-develop:latest}
+    pull_policy: always
     restart: "no"
     networks:
       - frappe_network
@@ -105,7 +112,8 @@ services:
       - db-data:/var/lib/mysql
 
   frontend:
-    image: frappe/erpnext:v16.52.1
+    image: ${ERPNEXT_IMAGE:-ghcr.io/factorgh/erpnext-develop:latest}
+    pull_policy: always
     restart: unless-stopped
     networks:
       - frappe_network
@@ -138,7 +146,8 @@ services:
       - traefik.http.services.stackerp.loadbalancer.server.port=8080
 
   queue-long:
-    image: frappe/erpnext:v16.52.1
+    image: ${ERPNEXT_IMAGE:-ghcr.io/factorgh/erpnext-develop:latest}
+    pull_policy: always
     restart: unless-stopped
     networks:
       - frappe_network
@@ -158,7 +167,8 @@ services:
         condition: service_completed_successfully
 
   queue-short:
-    image: frappe/erpnext:v16.52.1
+    image: ${ERPNEXT_IMAGE:-ghcr.io/factorgh/erpnext-develop:latest}
+    pull_policy: always
     restart: unless-stopped
     networks:
       - frappe_network
@@ -192,7 +202,8 @@ services:
       - frappe_network
 
   scheduler:
-    image: frappe/erpnext:v16.52.1
+    image: ${ERPNEXT_IMAGE:-ghcr.io/factorgh/erpnext-develop:latest}
+    pull_policy: always
     restart: unless-stopped
     networks:
       - frappe_network
@@ -207,7 +218,8 @@ services:
         condition: service_completed_successfully
 
   websocket:
-    image: frappe/erpnext:v16.52.1
+    image: ${ERPNEXT_IMAGE:-ghcr.io/factorgh/erpnext-develop:latest}
+    pull_policy: always
     restart: unless-stopped
     networks:
       - frappe_network

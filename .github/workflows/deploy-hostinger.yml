@@ -37,7 +37,7 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
             type=raw,value=latest
-            type=sha,prefix=
+            type=raw,value=${{ github.sha }}
 
       - name: Build and push
         uses: docker/build-push-action@v6
@@ -67,6 +67,24 @@ jobs:
             exit 1
           fi
 
+      - name: Pin compose to this commit's image
+        env:
+          IMAGE: ghcr.io/${{ github.repository }}:${{ github.sha }}
+        run: |
+          python3 <<'PY'
+          import os
+          from pathlib import Path
+          img = os.environ["IMAGE"]
+          path = Path("docker-compose.yml")
+          text = path.read_text()
+          text = text.replace(
+              "${ERPNEXT_IMAGE:-ghcr.io/factorgh/erpnext-develop:latest}",
+              img,
+          )
+          path.write_text(text)
+          print("Pinned image to", img)
+          PY
+
       - name: Deploy compose to Hostinger Docker Manager
         uses: hostinger/deploy-on-vps@v2
         with:
@@ -75,4 +93,4 @@ jobs:
           project-name: stackerp
           docker-compose-path: docker-compose.yml
           environment-variables: |
-            ERPNEXT_IMAGE=ghcr.io/${{ github.repository }}:latest
+            ERPNEXT_IMAGE=ghcr.io/${{ github.repository }}:${{ github.sha }}

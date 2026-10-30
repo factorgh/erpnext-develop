@@ -22,20 +22,25 @@ def after_migrate():
 	frappe.db.commit()
 
 
+LOGO_URL = "/assets/erpnext/images/erpnext-logo.png"
+
+
+def update_website_context(context):
+	context["splash_image"] = LOGO_URL
+	context["app_logo"] = LOGO_URL
+	context["favicon"] = LOGO_URL
+	return context
+
+
 def apply_branding():
-	logo = "/assets/erpnext/images/erpnext-logo.png"
 	website_meta = frappe.get_meta("Website Settings")
-	website_values = {
-		field: logo
-		for field in ("app_logo", "splash_image", "banner_image", "favicon")
-		if website_meta.has_field(field)
-	}
-	for field, value in website_values.items():
-		frappe.db.set_single_value("Website Settings", field, value, update_modified=False)
+	for field in ("app_logo", "splash_image", "banner_image", "favicon"):
+		if website_meta.has_field(field):
+			frappe.db.set_single_value("Website Settings", field, LOGO_URL, update_modified=False)
 
 	system_meta = frappe.get_meta("System Settings")
 	if system_meta.has_field("app_logo"):
-		frappe.db.set_single_value("System Settings", "app_logo", logo, update_modified=False)
+		frappe.db.set_single_value("System Settings", "app_logo", LOGO_URL, update_modified=False)
 
 
 def after_install():

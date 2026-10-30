@@ -143,6 +143,8 @@ website_context = {
 	"app_logo": "/assets/erpnext/images/erpnext-logo.png",
 }
 
+update_website_context = ["erpnext.setup.install.update_website_context"]
+
 # nosemgrep
 website_route_rules = [
 	{"from_route": "/orders", "to_route": "Sales Order"},

@@ -42,6 +42,10 @@ services:
         if [ -d sites/frontend ]; then
           bench --site frontend set-config host_name "https://ledstackerp.com";
           bench --site frontend migrate || true;
+          bench --site frontend install-app erpnext || true;
+          bench --site frontend execute "frappe.db.set_single_value('Website Settings', 'app_logo', '/assets/erpnext/images/erpnext-logo.png')" || true;
+          bench --site frontend execute "frappe.db.set_single_value('Website Settings', 'splash_image', '/assets/erpnext/images/erpnext-logo.png')" || true;
+          bench --site frontend execute "frappe.db.set_single_value('Website Settings', 'favicon', '/assets/erpnext/images/erpnext-logo.png')" || true;
           bench --site frontend clear-cache || true;
         fi;
     environment:

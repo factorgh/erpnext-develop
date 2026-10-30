@@ -46,6 +46,8 @@ services:
           bench --site frontend execute "frappe.db.set_single_value('Website Settings', 'app_logo', '/assets/erpnext/images/erpnext-logo.png')" || true;
           bench --site frontend execute "frappe.db.set_single_value('Website Settings', 'splash_image', '/assets/erpnext/images/erpnext-logo.png')" || true;
           bench --site frontend execute "frappe.db.set_single_value('Website Settings', 'favicon', '/assets/erpnext/images/erpnext-logo.png')" || true;
+          bench --site frontend execute "frappe.db.set_single_value('Website Settings', 'app_name', 'LEDSTACKERP')" || true;
+          bench --site frontend execute "frappe.db.set_single_value('System Settings', 'app_name', 'LEDSTACKERP')" || true;
           bench --site frontend clear-cache || true;
         fi;
     environment:

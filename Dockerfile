@@ -17,5 +17,5 @@ RUN set -eu; \
   cp /tmp/erpnext-logo.png "$dest_assets"; \
   if [ -f apps/erpnext/erpnext/hooks.py ]; then \
     sed -i 's|/assets/erpnext/images/erpnext-logo.svg|/assets/erpnext/images/erpnext-logo.png|g' apps/erpnext/erpnext/hooks.py; \
-    sed -i 's/^app_title = "ERPNext"/app_title = "LEDSTACKERP"/' apps/erpnext/erpnext/hooks.py; \
+    sed -i 's/^app_title = "ERPNext"/app_title = "LedstackERP"/' apps/erpnext/erpnext/hooks.py; \
   fi

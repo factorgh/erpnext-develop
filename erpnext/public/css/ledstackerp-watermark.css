@@ -1,0 +1,20 @@
+/* Faint LT mark behind the desk — not a center UI logo. */
+body::before {
+	content: "";
+	position: fixed;
+	inset: 0;
+	pointer-events: none;
+	z-index: 0;
+	background: url("/assets/erpnext/images/erpnext-logo.png") no-repeat center 46%;
+	background-size: min(520px, 42vw);
+	opacity: 0.1;
+	mix-blend-mode: multiply;
+}
+
+.main-section,
+.layout-main,
+.page-container,
+.for-login {
+	position: relative;
+	z-index: 1;
+}

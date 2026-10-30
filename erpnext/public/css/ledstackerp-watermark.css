@@ -1,20 +1,24 @@
-/* Faint LT mark behind the desk — not a center UI logo. */
-body::before {
-	content: "";
-	position: fixed;
-	inset: 0;
-	pointer-events: none;
-	z-index: 0;
-	background: url("/assets/erpnext/images/erpnext-logo.png") no-repeat center 46%;
-	background-size: min(520px, 42vw);
-	opacity: 0.1;
-	mix-blend-mode: multiply;
+/* Permanent LT watermark behind every desk/form page, Aqiq-style. */
+.layout-main-section,
+.page-body,
+.form-layout,
+.workspace-page,
+.for-login,
+.page-card-container {
+	background-image: url("/assets/erpnext/images/ledstackerp-watermark.png") !important;
+	background-repeat: no-repeat !important;
+	background-position: center 42% !important;
+	background-size: min(520px, 48vw) !important;
+	background-attachment: fixed !important;
 }
 
-.main-section,
-.layout-main,
-.page-container,
-.for-login {
-	position: relative;
-	z-index: 1;
+@media print {
+	.layout-main-section,
+	.page-body,
+	.form-layout,
+	.workspace-page,
+	.for-login,
+	.page-card-container {
+		background-image: none !important;
+	}
 }

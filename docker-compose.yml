@@ -39,6 +39,10 @@ services:
         bench set-config -g redis_queue "redis://$$REDIS_QUEUE";
         bench set-config -g redis_socketio "redis://$$REDIS_QUEUE";
         bench set-config -gp socketio_port $$SOCKETIO_PORT;
+        mkdir -p sites/assets/erpnext/css sites/assets/erpnext/images;
+        cp apps/erpnext/erpnext/public/images/erpnext-logo.png sites/assets/erpnext/images/ || true;
+        cp apps/erpnext/erpnext/public/images/ledstackerp-watermark.png sites/assets/erpnext/images/ || true;
+        cp apps/erpnext/erpnext/public/css/ledstackerp-watermark.css sites/assets/erpnext/css/ || true;
         if [ -d sites/frontend ]; then
           bench --site frontend set-config host_name "https://ledstackerp.com";
           bench --site frontend migrate || true;

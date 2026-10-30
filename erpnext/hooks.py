@@ -41,8 +41,14 @@ code_only_modules = {
 develop_version = "17.x.x-develop"
 
 app_include_js = "erpnext.bundle.js"
-app_include_css = "erpnext.bundle.css"
-web_include_css = "erpnext-web.bundle.css"
+app_include_css = [
+	"erpnext.bundle.css",
+	"/assets/erpnext/css/ledstackerp-watermark.css",
+]
+web_include_css = [
+	"erpnext-web.bundle.css",
+	"/assets/erpnext/css/ledstackerp-watermark.css",
+]
 email_css = "email_erpnext.bundle.css"
 
 app_include_icons = [

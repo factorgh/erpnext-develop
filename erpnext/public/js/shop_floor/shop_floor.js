@@ -100,7 +100,7 @@ class ShopFloor {
 		`);
 
 		this.app = this.wrapper.find(".sf-app");
-		this.brand_icon = `<img class="sf-brand-icon" src="/assets/erpnext/images/erpnext-logo.svg" alt="${__(
+		this.brand_icon = `<img class="sf-brand-icon" src="/assets/erpnext/images/erpnext-logo.png" alt="${__(
 			"ERPNext"
 		)}">`;
 		this.topbar_left = this.wrapper.find(".sf-topbar-left");

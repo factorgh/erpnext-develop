@@ -17,6 +17,27 @@ default_mail_footer = """<div style="padding: 7px; text-align: right; color: #88
 	<a style="color: #888" href="http://frappe.io/erpnext">ERPNext</a></div>"""
 
 
+def after_migrate():
+	apply_branding()
+	frappe.db.commit()
+
+
+def apply_branding():
+	logo = "/assets/erpnext/images/erpnext-logo.png"
+	website_meta = frappe.get_meta("Website Settings")
+	website_values = {
+		field: logo
+		for field in ("app_logo", "splash_image", "banner_image", "favicon")
+		if website_meta.has_field(field)
+	}
+	for field, value in website_values.items():
+		frappe.db.set_single_value("Website Settings", field, value, update_modified=False)
+
+	system_meta = frappe.get_meta("System Settings")
+	if system_meta.has_field("app_logo"):
+		frappe.db.set_single_value("System Settings", "app_logo", logo, update_modified=False)
+
+
 def after_install():
 	if not frappe.db.exists("Role", "Analytics"):
 		frappe.get_doc({"doctype": "Role", "role_name": "Analytics"}).insert()
@@ -36,6 +57,7 @@ def after_install():
 	add_company_to_session_defaults()
 	add_standard_navbar_items()
 	add_app_name()
+	apply_branding()
 	update_roles()
 	make_default_operations()
 	update_pegged_currencies()

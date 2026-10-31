@@ -15,7 +15,8 @@
 {% block page_content %}
 <div class="ls-landing">
 	<div class="ls-topbar">
-		<span>LedstackERP · One workspace for the whole company</span>
+		<span class="ls-topbar-full">LedstackERP · One workspace for the whole company</span>
+		<span class="ls-topbar-short">LedstackERP</span>
 		{% if logged_in %}
 		<a href="/desk">Open desk</a>
 		{% else %}
@@ -36,13 +37,31 @@
 		</nav>
 		<div class="ls-nav-cta">
 			{% if logged_in %}
-			<a class="ls-btn ls-btn-ghost" href="/desk">Desk</a>
+			<a class="ls-btn ls-btn-ghost ls-nav-secondary" href="/desk">Desk</a>
 			<a class="ls-btn ls-btn-yellow" href="/desk">Continue</a>
 			{% else %}
-			<a class="ls-btn ls-btn-ghost" href="/login">Sign in</a>
+			<a class="ls-btn ls-btn-ghost ls-nav-secondary" href="/login">Sign in</a>
 			<a class="ls-btn ls-btn-yellow" href="/login">Enter workspace</a>
 			{% endif %}
 		</div>
+		<details class="ls-menu">
+			<summary class="ls-menu-toggle" aria-label="Open menu">
+				<span></span>
+				<span></span>
+				<span></span>
+			</summary>
+			<nav class="ls-menu-panel" aria-label="Mobile">
+				<a href="#product" onclick="this.closest('details').removeAttribute('open')">Product</a>
+				<a href="#solutions" onclick="this.closest('details').removeAttribute('open')">Solutions</a>
+				<a href="#suite" onclick="this.closest('details').removeAttribute('open')">Suite</a>
+				<a href="#results" onclick="this.closest('details').removeAttribute('open')">Results</a>
+				{% if logged_in %}
+				<a class="ls-btn ls-btn-yellow" href="/desk">Open desk</a>
+				{% else %}
+				<a class="ls-btn ls-btn-yellow" href="/login">Sign in</a>
+				{% endif %}
+			</nav>
+		</details>
 	</header>
 
 	<section class="ls-hero">

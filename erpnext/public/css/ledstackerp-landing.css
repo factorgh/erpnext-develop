@@ -2,6 +2,12 @@ html:has(.ls-landing)::before {
 	display: none !important;
 }
 
+html:has(.ls-landing),
+body:has(.ls-landing) {
+	overflow-x: hidden;
+	max-width: 100%;
+}
+
 .navbar,
 header.web-header,
 .web-footer,
@@ -36,9 +42,9 @@ body:has(.ls-landing) {
 	--ls-wash: #f4f5f7;
 	box-sizing: border-box;
 	min-height: 100vh;
-	margin-left: calc(50% - 50vw);
-	margin-right: calc(50% - 50vw);
-	width: 100vw;
+	width: 100%;
+	max-width: 100%;
+	overflow-x: hidden;
 	background: var(--ls-wash);
 	color: var(--ls-ink);
 	font-family: "DM Sans", ui-sans-serif, system-ui, sans-serif;
@@ -53,11 +59,16 @@ body:has(.ls-landing) {
 .ls-topbar {
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
 	gap: 1rem;
 	padding: 0.55rem 6vw;
 	background: var(--ls-navy);
 	color: #d4d4d8;
 	font-size: 0.8rem;
+}
+
+.ls-topbar-short {
+	display: none;
 }
 
 .ls-topbar a {
@@ -69,25 +80,92 @@ body:has(.ls-landing) {
 .ls-nav {
 	position: sticky;
 	top: 0;
-	z-index: 5;
+	z-index: 20;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	gap: 1.25rem;
-	padding: 0.9rem 6vw;
-	background: rgba(255, 255, 255, 0.94);
+	gap: 0.75rem;
+	padding: 0.75rem 6vw;
+	background: rgba(255, 255, 255, 0.96);
 	border-bottom: 1px solid var(--ls-line);
 	backdrop-filter: blur(10px);
+}
+
+.ls-menu {
+	display: none;
+	position: relative;
+}
+
+.ls-menu-toggle {
+	list-style: none;
+	cursor: pointer;
+	width: 42px;
+	height: 42px;
+	border: 1px solid var(--ls-line);
+	border-radius: 8px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 5px;
+	background: #fff;
+}
+
+.ls-menu-toggle::-webkit-details-marker {
+	display: none;
+}
+
+.ls-menu-toggle span {
+	display: block;
+	width: 16px;
+	height: 2px;
+	background: var(--ls-navy);
+	border-radius: 2px;
+}
+
+.ls-menu-panel {
+	position: absolute;
+	right: 0;
+	top: calc(100% + 0.55rem);
+	width: min(22rem, calc(100vw - 2rem));
+	background: #fff;
+	border: 1px solid var(--ls-line);
+	border-radius: 12px;
+	box-shadow: 0 16px 40px rgba(17, 24, 39, 0.12);
+	padding: 0.75rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+}
+
+.ls-menu-panel a {
+	color: var(--ls-navy);
+	text-decoration: none;
+	padding: 0.75rem 0.85rem;
+	border-radius: 8px;
+	font-weight: 600;
+}
+
+.ls-menu-panel .ls-btn {
+	margin-top: 0.4rem;
+	width: 100%;
 }
 
 .ls-brand {
 	display: flex;
 	align-items: center;
 	gap: 0.65rem;
+	min-width: 0;
 	color: var(--ls-navy);
 	text-decoration: none;
 	font-weight: 700;
 	letter-spacing: -0.03em;
+}
+
+.ls-brand span {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .ls-brand img {
@@ -402,8 +480,36 @@ body:has(.ls-landing) {
 }
 
 @media (max-width: 960px) {
-	.ls-nav-links {
+	.ls-topbar,
+	.ls-nav,
+	.ls-hero,
+	.ls-strip,
+	.ls-outcomes,
+	.ls-suite,
+	.ls-results,
+	.ls-bands,
+	.ls-cta,
+	.ls-footer {
+		padding-left: 1.15rem;
+		padding-right: 1.15rem;
+	}
+
+	.ls-topbar-full {
 		display: none;
+	}
+
+	.ls-topbar-short {
+		display: inline;
+	}
+
+	.ls-nav-links,
+	.ls-nav-cta {
+		display: none;
+	}
+
+	.ls-menu {
+		display: block;
+		margin-left: auto;
 	}
 
 	.ls-hero,
@@ -414,8 +520,46 @@ body:has(.ls-landing) {
 		grid-template-columns: 1fr;
 	}
 
+	.ls-hero {
+		gap: 1.5rem;
+		padding-top: 2rem;
+		padding-bottom: 2rem;
+	}
+
+	.ls-hero h1 {
+		font-size: clamp(1.9rem, 9vw, 2.6rem);
+	}
+
+	.ls-lead,
+	.ls-band p,
+	.ls-suite-head p {
+		font-size: 1rem;
+	}
+
+	.ls-hero-actions {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	.ls-hero-actions .ls-btn {
+		width: 100%;
+	}
+
+	.ls-band {
+		gap: 1.25rem;
+		padding: 1.25rem;
+		border-radius: 14px;
+	}
+
 	.ls-band-flip > div:first-child {
 		order: 0;
+	}
+
+	.ls-outcomes,
+	.ls-suite,
+	.ls-results {
+		padding-top: 2.5rem;
+		padding-bottom: 2.5rem;
 	}
 
 	.ls-outcome-grid,
@@ -426,13 +570,41 @@ body:has(.ls-landing) {
 
 	.ls-hero-shot img,
 	.ls-shot img {
-		min-height: 220px;
-		max-height: 280px;
-		height: 220px;
+		min-height: 200px;
+		max-height: 240px;
+		height: 200px;
 	}
 
 	.ls-cta {
-		align-items: flex-start;
+		margin-left: 1.15rem;
+		margin-right: 1.15rem;
+		align-items: stretch;
 		flex-direction: column;
+	}
+
+	.ls-cta .ls-btn {
+		width: 100%;
+	}
+
+	.ls-strip {
+		letter-spacing: 0;
+		font-size: 0.85rem;
+		line-height: 1.5;
+	}
+
+	.ls-footer {
+		gap: 1.4rem;
+		padding-bottom: 3rem;
+	}
+}
+
+@media (max-width: 480px) {
+	.ls-brand span {
+		font-size: 0.95rem;
+	}
+
+	.ls-nav {
+		padding-top: 0.65rem;
+		padding-bottom: 0.65rem;
 	}
 }

@@ -43,6 +43,7 @@ services:
         cp apps/erpnext/erpnext/public/images/erpnext-logo.png sites/assets/erpnext/images/ || true;
         cp apps/erpnext/erpnext/public/images/ledstackerp-watermark.png sites/assets/erpnext/images/ || true;
         cp apps/erpnext/erpnext/public/css/ledstackerp-watermark.css sites/assets/erpnext/css/ || true;
+        cp apps/erpnext/erpnext/public/css/ledstackerp-landing.css sites/assets/erpnext/css/ || true;
         if [ -d sites/frontend ]; then
           bench --site frontend set-config host_name "https://ledstackerp.com";
           bench --site frontend migrate || true;
@@ -52,7 +53,10 @@ services:
           bench --site frontend execute "frappe.db.set_single_value('Website Settings', 'favicon', '/assets/erpnext/images/erpnext-logo.png')" || true;
           bench --site frontend execute "frappe.db.set_single_value('Website Settings', 'app_name', 'LedstackERP')" || true;
           bench --site frontend execute "frappe.db.set_single_value('System Settings', 'app_name', 'LedstackERP')" || true;
+          bench --site frontend execute "frappe.db.set_single_value('Website Settings', 'home_page', 'home')" || true;
+          bench --site frontend execute "frappe.db.set_single_value('Website Settings', 'title', 'LedstackERP')" || true;
           bench --site frontend clear-cache || true;
+          bench --site frontend clear-website-cache || true;
         fi;
     environment:
       DB_HOST: db

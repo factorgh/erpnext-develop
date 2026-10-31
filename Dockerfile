@@ -8,6 +8,9 @@ WORKDIR /home/frappe/frappe-bench
 COPY --chown=frappe:frappe erpnext/public/images/erpnext-logo.png /tmp/erpnext-logo.png
 COPY --chown=frappe:frappe erpnext/public/images/ledstackerp-watermark.png /tmp/ledstackerp-watermark.png
 COPY --chown=frappe:frappe erpnext/public/css/ledstackerp-watermark.css /tmp/ledstackerp-watermark.css
+COPY --chown=frappe:frappe erpnext/public/css/ledstackerp-landing.css /tmp/ledstackerp-landing.css
+COPY --chown=frappe:frappe erpnext/www/home.html /tmp/home.html
+COPY --chown=frappe:frappe erpnext/www/home.py /tmp/home.py
 
 USER frappe
 
@@ -18,15 +21,23 @@ RUN set -eu; \
   wm_assets="assets/erpnext/images/ledstackerp-watermark.png"; \
   css_app="apps/erpnext/erpnext/public/css/ledstackerp-watermark.css"; \
   css_assets="assets/erpnext/css/ledstackerp-watermark.css"; \
+  land_app="apps/erpnext/erpnext/public/css/ledstackerp-landing.css"; \
+  land_assets="assets/erpnext/css/ledstackerp-landing.css"; \
+  www_dir="apps/erpnext/erpnext/www"; \
   mkdir -p "$(dirname "$dest_app")" "$(dirname "$dest_assets")" \
     "$(dirname "$wm_app")" "$(dirname "$wm_assets")" \
-    "$(dirname "$css_app")" "$(dirname "$css_assets")"; \
+    "$(dirname "$css_app")" "$(dirname "$css_assets")" \
+    "$(dirname "$land_app")" "$(dirname "$land_assets")" "$www_dir"; \
   cp /tmp/erpnext-logo.png "$dest_app"; \
   cp /tmp/erpnext-logo.png "$dest_assets"; \
   cp /tmp/ledstackerp-watermark.png "$wm_app"; \
   cp /tmp/ledstackerp-watermark.png "$wm_assets"; \
   cp /tmp/ledstackerp-watermark.css "$css_app"; \
   cp /tmp/ledstackerp-watermark.css "$css_assets"; \
+  cp /tmp/ledstackerp-landing.css "$land_app"; \
+  cp /tmp/ledstackerp-landing.css "$land_assets"; \
+  cp /tmp/home.html "$www_dir/home.html"; \
+  cp /tmp/home.py "$www_dir/home.py"; \
   python3 - <<'PY'
 from pathlib import Path
 import re
@@ -59,5 +70,7 @@ def inject(text, var, extra):
 
 text = inject(text, "app_include_css", extra)
 text = inject(text, "web_include_css", extra)
+if 'home_page =' not in text:
+    text += '\nhome_page = "home"\n'
 p.write_text(text)
 PY

@@ -1,0 +1,107 @@
+{% extends "templates/web.html" %}
+
+{% block title %}LedstackERP{% endblock %}
+
+{% block extra_head %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="/assets/erpnext/css/ledstackerp-landing.css">
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="/assets/erpnext/css/ledstackerp-landing.css">
+{% endblock %}
+
+{% block page_content %}
+<div class="ls-landing">
+	<header class="ls-nav">
+		<a class="ls-brand" href="/">
+			<img src="/assets/erpnext/images/erpnext-logo.png" alt="LedstackERP" width="36" height="36">
+			<span>LedstackERP</span>
+		</a>
+		<nav class="ls-nav-links">
+			<a href="#modules">Modules</a>
+			{% if logged_in %}
+			<a class="ls-btn ls-btn-yellow" href="/desk">Open desk</a>
+			{% else %}
+			<a class="ls-btn ls-btn-ghost" href="/login">Login</a>
+			<a class="ls-btn ls-btn-yellow" href="/login">Enter workspace</a>
+			{% endif %}
+		</nav>
+	</header>
+
+	<section class="ls-hero">
+		<p class="ls-kicker">Accounts · Stock · People</p>
+		<h1>The stack your ledger runs on.</h1>
+		<p class="ls-lead">LedstackERP keeps books, inventory, sales and payroll in one workspace — so the office stops chasing numbers across spreadsheets.</p>
+		<div class="ls-hero-actions">
+			{% if logged_in %}
+			<a class="ls-btn ls-btn-yellow ls-btn-lg" href="/desk">Go to desk</a>
+			{% else %}
+			<a class="ls-btn ls-btn-yellow ls-btn-lg" href="/login">Sign in</a>
+			{% endif %}
+			<a class="ls-btn ls-btn-ghost ls-btn-lg" href="#modules">See what is inside</a>
+		</div>
+	</section>
+
+	<section class="ls-pillars">
+		<article>
+			<h2>One set of books</h2>
+			<p>Invoices, payments, tax and the general ledger stay on the same record. Close the month without reconciling five files.</p>
+		</article>
+		<article>
+			<h2>Stock that matches sales</h2>
+			<p>Warehouses, deliveries and purchase receipts post through to accounts. What you sold is what left the shelf.</p>
+		</article>
+		<article>
+			<h2>People next to payroll</h2>
+			<p>Employees, leave and salary sit beside the same company you bill from. HR is not a separate island.</p>
+		</article>
+	</section>
+
+	<section class="ls-modules" id="modules">
+		<h2>What you can run from the desk</h2>
+		<ul>
+			<li>
+				<strong>Accounting</strong>
+				<span>Chart of accounts, invoices, payments, journals.</span>
+			</li>
+			<li>
+				<strong>Selling</strong>
+				<span>Quotations, orders and customer statements.</span>
+			</li>
+			<li>
+				<strong>Buying</strong>
+				<span>Suppliers, purchase orders and receipts.</span>
+			</li>
+			<li>
+				<strong>Stock</strong>
+				<span>Items, warehouses, deliveries and balances.</span>
+			</li>
+			<li>
+				<strong>HR &amp; Payroll</strong>
+				<span>Employees, attendance, leave and salaries.</span>
+			</li>
+			<li>
+				<strong>Projects</strong>
+				<span>Tasks, timesheets and job costing.</span>
+			</li>
+		</ul>
+	</section>
+
+	<section class="ls-cta">
+		<h2>Your workspace is ready.</h2>
+		<p>Staff sign in with the account you already created. Guests stay on this page.</p>
+		{% if logged_in %}
+		<a class="ls-btn ls-btn-yellow ls-btn-lg" href="/desk">Open LedstackERP</a>
+		{% else %}
+		<a class="ls-btn ls-btn-yellow ls-btn-lg" href="/login">Login to LedstackERP</a>
+		{% endif %}
+	</section>
+
+	<footer class="ls-footer">
+		<span>LedstackERP</span>
+		<a href="/login">Login</a>
+	</footer>
+</div>
+{% endblock %}

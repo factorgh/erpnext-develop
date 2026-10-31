@@ -11,6 +11,10 @@ COPY --chown=frappe:frappe erpnext/public/css/ledstackerp-watermark.css /tmp/led
 COPY --chown=frappe:frappe erpnext/public/css/ledstackerp-landing.css /tmp/ledstackerp-landing.css
 COPY --chown=frappe:frappe erpnext/www/home.html /tmp/home.html
 COPY --chown=frappe:frappe erpnext/www/home.py /tmp/home.py
+COPY --chown=frappe:frappe erpnext/public/images/landing-hero.jpg /tmp/landing-hero.jpg
+COPY --chown=frappe:frappe erpnext/public/images/landing-finance.jpg /tmp/landing-finance.jpg
+COPY --chown=frappe:frappe erpnext/public/images/landing-selling.jpg /tmp/landing-selling.jpg
+COPY --chown=frappe:frappe erpnext/public/images/landing-stock.jpg /tmp/landing-stock.jpg
 
 USER frappe
 
@@ -38,6 +42,14 @@ RUN set -eu; \
   cp /tmp/ledstackerp-landing.css "$land_assets"; \
   cp /tmp/home.html "$www_dir/home.html"; \
   cp /tmp/home.py "$www_dir/home.py"; \
+  cp /tmp/landing-hero.jpg "$(dirname "$dest_app")/landing-hero.jpg"; \
+  cp /tmp/landing-hero.jpg "$(dirname "$dest_assets")/landing-hero.jpg"; \
+  cp /tmp/landing-finance.jpg "$(dirname "$dest_app")/landing-finance.jpg"; \
+  cp /tmp/landing-finance.jpg "$(dirname "$dest_assets")/landing-finance.jpg"; \
+  cp /tmp/landing-selling.jpg "$(dirname "$dest_app")/landing-selling.jpg"; \
+  cp /tmp/landing-selling.jpg "$(dirname "$dest_assets")/landing-selling.jpg"; \
+  cp /tmp/landing-stock.jpg "$(dirname "$dest_app")/landing-stock.jpg"; \
+  cp /tmp/landing-stock.jpg "$(dirname "$dest_assets")/landing-stock.jpg"; \
   python3 - <<'PY'
 from pathlib import Path
 import re

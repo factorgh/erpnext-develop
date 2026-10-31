@@ -44,6 +44,7 @@ services:
         cp apps/erpnext/erpnext/public/images/ledstackerp-watermark.png sites/assets/erpnext/images/ || true;
         cp apps/erpnext/erpnext/public/css/ledstackerp-watermark.css sites/assets/erpnext/css/ || true;
         cp apps/erpnext/erpnext/public/css/ledstackerp-landing.css sites/assets/erpnext/css/ || true;
+        cp apps/erpnext/erpnext/public/images/landing-*.jpg sites/assets/erpnext/images/ || true;
         if [ -d sites/frontend ]; then
           bench --site frontend set-config host_name "https://ledstackerp.com";
           bench --site frontend migrate || true;

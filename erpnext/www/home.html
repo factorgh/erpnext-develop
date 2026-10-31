@@ -1,10 +1,10 @@
 {% extends "templates/web.html" %}
 
-{% block title %}LedstackERP{% endblock %}
+{% block title %}LedstackERP — Cloud ERP for finance, stock and people{% endblock %}
 
 {% block extra_head %}
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap">
 <link rel="stylesheet" href="/assets/erpnext/css/ledstackerp-landing.css">
 {% endblock %}
 
@@ -14,73 +14,192 @@
 
 {% block page_content %}
 <div class="ls-landing">
+	<div class="ls-topbar">
+		<span>LedstackERP · One workspace for the whole company</span>
+		{% if logged_in %}
+		<a href="/desk">Open desk</a>
+		{% else %}
+		<a href="/login">Customer login</a>
+		{% endif %}
+	</div>
+
 	<header class="ls-nav">
 		<a class="ls-brand" href="/">
-			<img src="/assets/erpnext/images/erpnext-logo.png" alt="LedstackERP" width="36" height="36">
+			<img src="/assets/erpnext/images/erpnext-logo.png" alt="" width="32" height="32">
 			<span>LedstackERP</span>
 		</a>
-		<nav class="ls-nav-links">
-			<a href="#modules">Modules</a>
+		<nav class="ls-nav-links" aria-label="Primary">
+			<a href="#product">Product</a>
+			<a href="#solutions">Solutions</a>
+			<a href="#suite">Suite</a>
+			<a href="#results">Results</a>
+		</nav>
+		<div class="ls-nav-cta">
 			{% if logged_in %}
-			<a class="ls-btn ls-btn-yellow" href="/desk">Open desk</a>
+			<a class="ls-btn ls-btn-ghost" href="/desk">Desk</a>
+			<a class="ls-btn ls-btn-yellow" href="/desk">Continue</a>
 			{% else %}
-			<a class="ls-btn ls-btn-ghost" href="/login">Login</a>
+			<a class="ls-btn ls-btn-ghost" href="/login">Sign in</a>
 			<a class="ls-btn ls-btn-yellow" href="/login">Enter workspace</a>
 			{% endif %}
-		</nav>
+		</div>
 	</header>
 
 	<section class="ls-hero">
-		<p class="ls-kicker">Accounts · Stock · People</p>
-		<h1>The stack your ledger runs on.</h1>
-		<p class="ls-lead">LedstackERP keeps books, inventory, sales and payroll in one workspace — so the office stops chasing numbers across spreadsheets.</p>
-		<div class="ls-hero-actions">
-			{% if logged_in %}
-			<a class="ls-btn ls-btn-yellow ls-btn-lg" href="/desk">Go to desk</a>
-			{% else %}
-			<a class="ls-btn ls-btn-yellow ls-btn-lg" href="/login">Sign in</a>
-			{% endif %}
-			<a class="ls-btn ls-btn-ghost ls-btn-lg" href="#modules">See what is inside</a>
+		<div class="ls-hero-copy">
+			<p class="ls-kicker">Cloud ERP</p>
+			<h1>Run the company from one ledger.</h1>
+			<p class="ls-lead">Financials, inventory, sales, purchasing and payroll post into the same records. Month-end is a close, not a scavenger hunt across spreadsheets.</p>
+			<div class="ls-hero-actions">
+				{% if logged_in %}
+				<a class="ls-btn ls-btn-yellow ls-btn-lg" href="/desk">Go to desk</a>
+				{% else %}
+				<a class="ls-btn ls-btn-yellow ls-btn-lg" href="/login">Sign in</a>
+				{% endif %}
+				<a class="ls-btn ls-btn-navy ls-btn-lg" href="#product">See the product</a>
+			</div>
+			<p class="ls-hero-note">Built for finance, operations and HR on a single company file.</p>
+		</div>
+		<div class="ls-hero-frame" aria-hidden="true">
+			<div class="ls-mock">
+				<div class="ls-mock-top">
+					<span class="ls-mock-dot"></span>
+					<span class="ls-mock-dot"></span>
+					<span class="ls-mock-dot"></span>
+					<span class="ls-mock-title">LedstackERP · Company overview</span>
+				</div>
+				<div class="ls-mock-body">
+					<aside>
+						<b>Desk</b>
+						<span>Accounting</span>
+						<span>Selling</span>
+						<span>Buying</span>
+						<span>Stock</span>
+						<span>HR</span>
+						<span>Projects</span>
+					</aside>
+					<main>
+						<div class="ls-kpis">
+							<div><em>Receivable</em><strong>GHS 184,220</strong></div>
+							<div><em>Payable</em><strong>GHS 61,040</strong></div>
+							<div><em>Stock value</em><strong>GHS 92,410</strong></div>
+						</div>
+						<table>
+							<thead>
+								<tr><th>Document</th><th>Party</th><th>Status</th></tr>
+							</thead>
+							<tbody>
+								<tr><td>SINV-00418</td><td>North Harbor Ltd</td><td>Paid</td></tr>
+								<tr><td>PO-00192</td><td>Keta Supplies</td><td>Received</td></tr>
+								<tr><td>SO-00711</td><td>Axim Retail</td><td>To deliver</td></tr>
+								<tr><td>PINV-00204</td><td>Tema Packing</td><td>Unpaid</td></tr>
+							</tbody>
+						</table>
+					</main>
+				</div>
+			</div>
 		</div>
 	</section>
 
-	<section class="ls-pillars">
-		<article>
-			<h2>One set of books</h2>
-			<p>Invoices, payments, tax and the general ledger stay on the same record. Close the month without reconciling five files.</p>
+	<section class="ls-strip" id="product">
+		<p>Accounting · Order to cash · Procure to pay · Inventory · Payroll · Projects</p>
+	</section>
+
+	<section class="ls-outcomes">
+		<h2>Close faster. Stay in control. Grow without extra systems.</h2>
+		<div class="ls-outcome-grid">
+			<article>
+				<h3>Close the month on one ledger</h3>
+				<p>Invoices, payments, tax and journals live on the same chart of accounts. The close is review and posting, not export-and-reconcile.</p>
+			</article>
+			<article>
+				<h3>Stop stock and sales drifting apart</h3>
+				<p>A delivery draws the same item the invoice billed. Warehouses, receipts and the general ledger stay in step.</p>
+			</article>
+			<article>
+				<h3>Add entities without adding tools</h3>
+				<p>Companies, warehouses and payroll sit in one workspace. New branches inherit the same processes instead of a new spreadsheet.</p>
+			</article>
+		</div>
+	</section>
+
+	<section class="ls-bands" id="solutions">
+		<article class="ls-band">
+			<div>
+				<p class="ls-kicker">Financial management</p>
+				<h2>Take control of the books.</h2>
+				<p>Chart of accounts, receivables, payables, banking and period close in one financials suite. Cash position and outstanding documents are visible without a side model.</p>
+				<ul>
+					<li>Sales and purchase invoices on the live ledger</li>
+					<li>Payment entry and outstanding statements</li>
+					<li>Journals, tax and multi-company books</li>
+				</ul>
+			</div>
+			<div class="ls-band-card">
+				<h3>Financials</h3>
+				<p>General ledger, invoices, payments, tax and cash.</p>
+			</div>
 		</article>
-		<article>
-			<h2>Stock that matches sales</h2>
-			<p>Warehouses, deliveries and purchase receipts post through to accounts. What you sold is what left the shelf.</p>
+		<article class="ls-band ls-band-flip">
+			<div>
+				<p class="ls-kicker">Order to cash</p>
+				<h2>Quote, pick, ship and bill on one order.</h2>
+				<p>Quotations become orders, orders become deliveries, deliveries become invoices. Customers see one story from the first quote to the last receipt.</p>
+				<ul>
+					<li>Quotations and sales orders</li>
+					<li>Delivery notes against live stock</li>
+					<li>Invoices that match what left the warehouse</li>
+				</ul>
+			</div>
+			<div class="ls-band-card">
+				<h3>Selling</h3>
+				<p>Customers, orders, deliveries and statements.</p>
+			</div>
 		</article>
-		<article>
-			<h2>People next to payroll</h2>
-			<p>Employees, leave and salary sit beside the same company you bill from. HR is not a separate island.</p>
+		<article class="ls-band">
+			<div>
+				<p class="ls-kicker">Inventory and purchasing</p>
+				<h2>Buy and store what you actually sell.</h2>
+				<p>Purchase orders, receipts and stock balances post through to accounts. Reorder from real quantities, not a weekly count in a workbook.</p>
+				<ul>
+					<li>Items, warehouses and valuations</li>
+					<li>Purchase orders and receipts</li>
+					<li>Stock and accounts that agree</li>
+				</ul>
+			</div>
+			<div class="ls-band-card">
+				<h3>Stock &amp; buying</h3>
+				<p>Suppliers, warehouses, receipts and balances.</p>
+			</div>
 		</article>
 	</section>
 
-	<section class="ls-modules" id="modules">
-		<h2>What you can run from the desk</h2>
+	<section class="ls-suite" id="suite">
+		<div class="ls-suite-head">
+			<p class="ls-kicker">The suite</p>
+			<h2>A full ERP, not a pile of apps.</h2>
+			<p>Every module writes to the same company. Open one desk. Run the operation.</p>
+		</div>
 		<ul>
 			<li>
 				<strong>Accounting</strong>
-				<span>Chart of accounts, invoices, payments, journals.</span>
+				<span>Ledger, invoices, payments, journals, tax.</span>
 			</li>
 			<li>
 				<strong>Selling</strong>
-				<span>Quotations, orders and customer statements.</span>
+				<span>Customers, quotations, orders, statements.</span>
 			</li>
 			<li>
 				<strong>Buying</strong>
-				<span>Suppliers, purchase orders and receipts.</span>
+				<span>Suppliers, purchase orders, receipts.</span>
 			</li>
 			<li>
 				<strong>Stock</strong>
-				<span>Items, warehouses, deliveries and balances.</span>
+				<span>Items, warehouses, deliveries, valuations.</span>
 			</li>
 			<li>
 				<strong>HR &amp; Payroll</strong>
-				<span>Employees, attendance, leave and salaries.</span>
+				<span>Employees, leave, attendance, salaries.</span>
 			</li>
 			<li>
 				<strong>Projects</strong>
@@ -89,19 +208,59 @@
 		</ul>
 	</section>
 
+	<section class="ls-results" id="results">
+		<h2>What changes when everything posts to one system.</h2>
+		<div class="ls-result-grid">
+			<article>
+				<strong>One close</strong>
+				<p>Finance reviews a single ledger instead of stitching sales, stock and bank files at month-end.</p>
+			</article>
+			<article>
+				<strong>One item master</strong>
+				<p>Sales, purchasing and warehouses share the same SKU. Returns and deliveries stop arguing about names.</p>
+			</article>
+			<article>
+				<strong>One employee record</strong>
+				<p>Leave, salary and the company they work for sit next to the books you already keep.</p>
+			</article>
+		</div>
+	</section>
+
 	<section class="ls-cta">
-		<h2>Your workspace is ready.</h2>
-		<p>Staff sign in with the account you already created. Guests stay on this page.</p>
+		<div>
+			<h2>Your workspace is already on this domain.</h2>
+			<p>Staff sign in with the account you created. This page stays public. The desk stays behind login.</p>
+		</div>
 		{% if logged_in %}
-		<a class="ls-btn ls-btn-yellow ls-btn-lg" href="/desk">Open LedstackERP</a>
+		<a class="ls-btn ls-btn-navy ls-btn-lg" href="/desk">Open LedstackERP</a>
 		{% else %}
-		<a class="ls-btn ls-btn-yellow ls-btn-lg" href="/login">Login to LedstackERP</a>
+		<a class="ls-btn ls-btn-navy ls-btn-lg" href="/login">Sign in to LedstackERP</a>
 		{% endif %}
 	</section>
 
 	<footer class="ls-footer">
-		<span>LedstackERP</span>
-		<a href="/login">Login</a>
+		<div class="ls-footer-brand">
+			<img src="/assets/erpnext/images/erpnext-logo.png" alt="" width="28" height="28">
+			<strong>LedstackERP</strong>
+			<p>Cloud ERP for finance, inventory, sales and payroll.</p>
+		</div>
+		<div>
+			<h3>Product</h3>
+			<a href="#product">Overview</a>
+			<a href="#suite">Modules</a>
+			<a href="/login">Sign in</a>
+		</div>
+		<div>
+			<h3>Solutions</h3>
+			<a href="#solutions">Financials</a>
+			<a href="#solutions">Order to cash</a>
+			<a href="#solutions">Inventory</a>
+		</div>
+		<div>
+			<h3>Company</h3>
+			<a href="/login">Customer login</a>
+			<a href="/desk">Desk</a>
+		</div>
 	</footer>
 </div>
 {% endblock %}

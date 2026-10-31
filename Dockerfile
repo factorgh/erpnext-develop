@@ -15,6 +15,7 @@ COPY --chown=frappe:frappe erpnext/public/images/landing-hero.jpg /tmp/landing-h
 COPY --chown=frappe:frappe erpnext/public/images/landing-finance.jpg /tmp/landing-finance.jpg
 COPY --chown=frappe:frappe erpnext/public/images/landing-selling.jpg /tmp/landing-selling.jpg
 COPY --chown=frappe:frappe erpnext/public/images/landing-stock.jpg /tmp/landing-stock.jpg
+COPY --chown=frappe:frappe erpnext/public/images/landing-team.jpg /tmp/landing-team.jpg
 
 USER frappe
 
@@ -50,6 +51,8 @@ RUN set -eu; \
   cp /tmp/landing-selling.jpg "$(dirname "$dest_assets")/landing-selling.jpg"; \
   cp /tmp/landing-stock.jpg "$(dirname "$dest_app")/landing-stock.jpg"; \
   cp /tmp/landing-stock.jpg "$(dirname "$dest_assets")/landing-stock.jpg"; \
+  cp /tmp/landing-team.jpg "$(dirname "$dest_app")/landing-team.jpg"; \
+  cp /tmp/landing-team.jpg "$(dirname "$dest_assets")/landing-team.jpg"; \
   python3 - <<'PY'
 from pathlib import Path
 import re

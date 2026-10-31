@@ -64,9 +64,10 @@
 		</details>
 	</header>
 
-	<section class="ls-hero">
-		<div class="ls-hero-copy">
-			<p class="ls-kicker">Cloud ERP</p>
+	<section class="ls-cinema">
+		<img src="/assets/erpnext/images/landing-hero.jpg" alt="Leadership working the operation in one room">
+		<div class="ls-cinema-veil">
+			<p class="ls-kicker ls-kicker-light">Cloud ERP</p>
 			<h1>Run the company from one ledger.</h1>
 			<p class="ls-lead">Financials, inventory, sales, purchasing and payroll post into the same records. Month-end is a close, not a scavenger hunt across spreadsheets.</p>
 			<div class="ls-hero-actions">
@@ -75,17 +76,28 @@
 				{% else %}
 				<a class="ls-btn ls-btn-yellow ls-btn-lg" href="/login">Sign in</a>
 				{% endif %}
-				<a class="ls-btn ls-btn-navy ls-btn-lg" href="#product">See the product</a>
+				<a class="ls-btn ls-btn-ghost-light ls-btn-lg" href="#product">See the product</a>
 			</div>
-			<p class="ls-hero-note">Built for finance, operations and HR on a single company file.</p>
 		</div>
-		<figure class="ls-hero-shot">
-			<img src="/assets/erpnext/images/landing-hero.jpg" alt="Operations team reviewing the business in one room">
-		</figure>
 	</section>
 
 	<section class="ls-strip" id="product">
 		<p>Accounting · Order to cash · Procure to pay · Inventory · Payroll · Projects</p>
+	</section>
+
+	<section class="ls-mosaic" aria-label="The people who run the stack">
+		<figure class="ls-mosaic-finance">
+			<img src="/assets/erpnext/images/landing-finance.jpg" alt="Finance lead closing the books">
+			<figcaption>The close</figcaption>
+		</figure>
+		<figure class="ls-mosaic-stock">
+			<img src="/assets/erpnext/images/landing-stock.jpg" alt="Stock lead on the warehouse floor">
+			<figcaption>The floor</figcaption>
+		</figure>
+		<figure class="ls-mosaic-selling">
+			<img src="/assets/erpnext/images/landing-selling.jpg" alt="Orders leaving the dock">
+			<figcaption>The dock</figcaption>
+		</figure>
 	</section>
 
 	<section class="ls-outcomes">
@@ -107,8 +119,11 @@
 	</section>
 
 	<section class="ls-bands" id="solutions">
-		<article class="ls-band">
-			<div>
+		<article class="ls-spread">
+			<figure>
+				<img src="/assets/erpnext/images/landing-finance.jpg" alt="Finance lead at the books">
+			</figure>
+			<div class="ls-spread-card">
 				<p class="ls-kicker">Financial management</p>
 				<h2>Take control of the books.</h2>
 				<p>Chart of accounts, receivables, payables, banking and period close in one financials suite. Cash position and outstanding documents are visible without a side model.</p>
@@ -118,13 +133,12 @@
 					<li>Journals, tax and multi-company books</li>
 				</ul>
 			</div>
-			<figure class="ls-shot">
-				<img src="/assets/erpnext/images/landing-finance.jpg" alt="Finance team working the books">
-				<figcaption>Financials · invoices, payments and cash</figcaption>
-			</figure>
 		</article>
-		<article class="ls-band ls-band-flip">
-			<div>
+		<article class="ls-spread ls-spread-flip">
+			<figure>
+				<img src="/assets/erpnext/images/landing-selling.jpg" alt="Fulfillment on the packing bench">
+			</figure>
+			<div class="ls-spread-card">
 				<p class="ls-kicker">Order to cash</p>
 				<h2>Quote, pick, ship and bill on one order.</h2>
 				<p>Quotations become orders, orders become deliveries, deliveries become invoices. Customers see one story from the first quote to the last receipt.</p>
@@ -134,13 +148,12 @@
 					<li>Invoices that match what left the warehouse</li>
 				</ul>
 			</div>
-			<figure class="ls-shot">
-				<img src="/assets/erpnext/images/landing-selling.jpg" alt="Orders packed and ready to ship">
-				<figcaption>Selling · quote, pick, ship and bill</figcaption>
-			</figure>
 		</article>
-		<article class="ls-band">
-			<div>
+		<article class="ls-spread">
+			<figure>
+				<img src="/assets/erpnext/images/landing-stock.jpg" alt="Warehouse aisles under live stock">
+			</figure>
+			<div class="ls-spread-card">
 				<p class="ls-kicker">Inventory and purchasing</p>
 				<h2>Buy and store what you actually sell.</h2>
 				<p>Purchase orders, receipts and stock balances post through to accounts. Reorder from real quantities, not a weekly count in a workbook.</p>
@@ -150,10 +163,6 @@
 					<li>Stock and accounts that agree</li>
 				</ul>
 			</div>
-			<figure class="ls-shot">
-				<img src="/assets/erpnext/images/landing-stock.jpg" alt="Warehouse aisles and live stock">
-				<figcaption>Stock · warehouses, receipts and balances</figcaption>
-			</figure>
 		</article>
 	</section>
 
@@ -209,16 +218,17 @@
 		</div>
 	</section>
 
-	<section class="ls-cta">
-		<div>
+	<section class="ls-finale">
+		<img src="/assets/erpnext/images/landing-team.jpg" alt="The team walking the work forward">
+		<div class="ls-finale-card">
 			<h2>Your workspace is already on this domain.</h2>
 			<p>Staff sign in with the account you created. This page stays public. The desk stays behind login.</p>
+			{% if logged_in %}
+			<a class="ls-btn ls-btn-yellow ls-btn-lg" href="/desk">Open LedstackERP</a>
+			{% else %}
+			<a class="ls-btn ls-btn-yellow ls-btn-lg" href="/login">Sign in to LedstackERP</a>
+			{% endif %}
 		</div>
-		{% if logged_in %}
-		<a class="ls-btn ls-btn-navy ls-btn-lg" href="/desk">Open LedstackERP</a>
-		{% else %}
-		<a class="ls-btn ls-btn-navy ls-btn-lg" href="/login">Sign in to LedstackERP</a>
-		{% endif %}
 	</section>
 
 	<footer class="ls-footer">
